@@ -82,12 +82,12 @@ namespace Netcaster.Frames
     {
         public override Task<Image> GetImage(
             IServiceProvider serviceProvider,
-            FqLinkGenerator _,
+            FqLinkGenerator fq,
             FrameSignaturePacket? fsp,
             FrameState state
         )
         {
-            return generate(fsp, state);
+            return generate(fsp, state, fq);
         }
     }
 
@@ -155,7 +155,7 @@ namespace Netcaster.Frames
         }
     }
 
-    public delegate Task<Image> GenerateImage(FrameSignaturePacket? fsp, FrameState state);
+    public delegate Task<Image> GenerateImage(FrameSignaturePacket? fsp, FrameState state, FqLinkGenerator linkGenerator);
     public delegate Task<Image> GenerateImage<TState>(FrameSignaturePacket? fsp, TState state);
 
     public record Image(AspectRatio AspectRatio, Uri uri);
